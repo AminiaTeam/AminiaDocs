@@ -1,0 +1,90 @@
+Combat screen:
+---------------------
+|  S     S      S   |
+|     S     S       |
+---------------------
+|   A   A   A   A   |
+---------------------
+Field:
+- two zones:
+  - Enemy zone (upper)
+  - Ally zone (lower)
+
+ENITITY:
+
+Made up of:
+- Name
+- Class
+- Level
+- HP
+- MP
+- ABILITIES
+- STATS: [ STR , INT , AGI , VIT , DEF , RES ]
+- ELEMENTAL RESISTANCES (%): [ FIRE, FROST, WIND, EARTH, LIGHT, DARK ]
+
+ELEMENTS:
+
+Fire:
+- May result in burn effect
+- Probability determined by caster's intelligence and receiver's fire resistance
+
+Frost:
+- May result in frozen effect
+- Probability determined by caster's intelligence and receiver's frost resistance
+
+Wind:
+- May result in confused effect
+- Probability determined by caster's intelligence and receiver's wind resistance
+
+Earth:
+- May result in withdrawal effect
+- Probability determined by caster's intelligence and receiver's earth resistance
+
+Light:
+- May result in dazed effect
+- Probability determined by caster's intelligence and receiver's light resistance
+
+Dark:
+- May result in bound effect
+- Probability determined by caster's intelligence and receiver's dark resistance
+
+STATUS EFFECTS:
+- Burn: Receives damage at the start of turn
+- Frozen: Looses its turn
+- Confused: Target for skill may be of the wrong team
+- Withdrawal: MAX MP is reduced by half.
+- Dazed: Abilities have a high miss rate.
+- Bound: Non-Physical and Elemental Abilities are disabled
+
+BUFFS/DEBUFFS:
+- Strong/Weak: Affects STR.
+- Enlightened/Blocked: Affects INT
+- Lightweight/Heavy: Affects AGI
+- Solid/Flimsy: Affects DEF
+- Focused/Distracted: Affects RES
+
+ABILITIES:
+
+Attribute types:
+- Physical: Effectiveness determined by caster strength and receiver defense
+- Magical: Effectiveness determined by caster intelligence and receiver resistance
+- Elemental: Physical or Magical. Includes an Element.
+
+Duration types:
+- Permanent: For full battle duration or until removal
+- Turn Counter: For a number of turns
+- Action Counter: Until a set of actions are executed a number of times
+
+Range types:
+- Half-Field: Only one zone
+- Full-Field: Both zones
+- Single Target: only one entity
+- Neighbors: One and adjacent entities
+- Exclusive Half-Field: Only one zone excluding caster.
+
+Effect types:
+- Damage: Reduces hp directly
+- Heal: Increases hp
+- Buff: Activates certain Buff. Increases stats
+- Debuff: Activates certain Debuff. Decreases stats
+- Status effect: Only in elemental types. Causes a change in combat flow. May affect stats
