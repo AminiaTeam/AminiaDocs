@@ -11,8 +11,6 @@ Field:
   - Ally zone (lower)
 
 ENITITY:
-
-Made up of:
 - Name
 - Class
 - Level
@@ -21,6 +19,19 @@ Made up of:
 - ABILITIES
 - STATS: [ STR , INT , AGI , VIT , DEF , RES ]
 - ELEMENTAL RESISTANCES (%): [ FIRE, FROST, WIND, EARTH, LIGHT, DARK ]
+
+ALLY extends ENTITY:
+- STATS: [ Threat ]
+- IS_LEADER
+
+HERO extends ALLY:
+- SPECIAL
+
+ENEMY extends ENTITY:
+- LOOT: [ any quantity of ITEMS ]
+
+BOSS extends ENEMY:
+- SPECIAL
 
 ELEMENTS:
 
@@ -65,6 +76,12 @@ BUFFS/DEBUFFS:
 
 ABILITIES:
 
+Activation Types:
+- Active : ability must be selected during turn
+- Passive: ability is always active
+- Trigger: ability activates automatically given a trigger
+- Special: ability that may break normal combat flow. Activates automatically during special triggers.
+
 Attribute types:
 - Physical: Effectiveness determined by caster strength and receiver defense
 - Magical: Effectiveness determined by caster intelligence and receiver resistance
@@ -88,3 +105,32 @@ Effect types:
 - Buff: Activates certain Buff. Increases stats
 - Debuff: Activates certain Debuff. Decreases stats
 - Status effect: Only in elemental types. Causes a change in combat flow. May affect stats
+
+Combat Flow:
+
+1. Beginning:
+  0 - SPECIAL TRIGGER PHASE: BEGINNING
+      - BOSS special triggers have precedence
+      - BOSS special triggers order are determined by magic
+      - HERO special triggers order are determined by the highest stat. Party leader has precedence
+  1 - TURN ASSIGN: All ENTITIES are assigned a turn order based on speed. Highest speed wins. 
+      - ALLY always has precedence over ENEMY in case of equal speed.
+      - ENEMY level is used in case of tie between two enemies
+      - ENEMY always has precedence over BOSS 
+  2 - TRIGGER PHASE: BEGINNING
+      - All entities trigger abilities that have a BEGINNING trigger, activate, in order.
+2. Combat Loop:
+  1 - CURRENT_TURN <- 0
+  2 - while one group has at least one ENTITY alive:
+    1 - if is alive:
+      1 - TRIGGER PHASE: TURN_START
+      2 - check status
+      3 - SPECIAL TRIGGER: TURN_CHANGE
+      4 - TRIGGER PHASE: TURN_END
+    2 - for every ENTITY:
+       1 - if just died: 
+          0 - SPECIAL TRIGGER: ENTITY DEATH
+          1 - TRIGGER PHASE: DEATH 
+    3 - Next ENTITY
+   3 - TRIGGER PHASE: COMBAT_END 
+3. Combat over screen
